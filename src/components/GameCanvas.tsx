@@ -11,9 +11,6 @@ import {
   chargePower,
   resetPower,
 } from "../features/game/gameSlice";
-import PlayerCard from "./PlayerCard";
-import PowerBar from "./PowerBar";
-import VoiceBar from "./VoiceBar";
 import Monster, { MonsterData } from "./Monster";
 
 extend({ Graphics, Container });
@@ -162,9 +159,6 @@ const GameCanvas = () => {
   return (
     <div style={{ display: "flex", gap: "1rem" }}>
       <div>
-        <PlayerCard />
-        <VoiceBar />
-        <PowerBar />
         <p style={{ color: "white" }}>❤️ 血量：{playerHealth}</p>
         <p style={{ color: "white" }}>🌊 第 {wave} 波</p>
         <button
