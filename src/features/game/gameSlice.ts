@@ -1,11 +1,10 @@
-// src/features/game/gameSlice.ts
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface Player {
+export interface Player {
   id: string;
   name: string;
-  volumeLevel: number; // 即時音量
-  power: number; // 蓄力程度
+  volume: number;
+  power: number;
   health: number;
 }
 
@@ -24,6 +23,7 @@ export const gameSlice = createSlice({
   initialState,
   reducers: {
     addPlayer: (state, action: PayloadAction<Player>) => {
+      if (state.players.find((p) => p.id === action.payload.id)) return;
       state.players.push(action.payload);
     },
     updateVolume: (
@@ -32,16 +32,23 @@ export const gameSlice = createSlice({
     ) => {
       const player = state.players.find((p) => p.id === action.payload.id);
       if (player) {
-        player.volumeLevel = action.payload.volume;
+        player.volume = action.payload.volume;
       }
     },
+
     chargePower: (
       state,
-      action: PayloadAction<{ id: string; power: number }>
+      action: PayloadAction<{ id: string; amount: number }>
     ) => {
       const player = state.players.find((p) => p.id === action.payload.id);
       if (player) {
-        player.power = action.payload.power;
+        player.power = Math.min(100, player.power + action.payload.amount);
+      }
+    },
+    resetPower: (state, action: PayloadAction<{ id: string }>) => {
+      const player = state.players.find((p) => p.id === action.payload.id);
+      if (player) {
+        player.power = 0;
       }
     },
     setCurrentPlayer: (state, action: PayloadAction<string>) => {
@@ -50,6 +57,12 @@ export const gameSlice = createSlice({
   },
 });
 
-export const { addPlayer, updateVolume, chargePower, setCurrentPlayer } =
-  gameSlice.actions;
+export const {
+  addPlayer,
+  updateVolume,
+  chargePower,
+  resetPower,
+  setCurrentPlayer,
+} = gameSlice.actions;
+
 export default gameSlice.reducer;

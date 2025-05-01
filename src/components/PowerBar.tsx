@@ -1,33 +1,29 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../app/store";
-import { useVoiceVolume } from "../hooks/useVoiceVolume";
 
-const VoiceBar = () => {
-  useVoiceVolume();
-
+const PowerBar = () => {
   const player = useSelector((state: RootState) =>
     state.game.players.find((p) => p.id === state.game.currentPlayerId)
   );
-  const volume = player?.volume ?? 0;
-  const percent = Math.min(volume, 100);
+  const power = player?.power ?? 0;
 
   return (
-    <div style={{ margin: "1rem 0" }}>
-      <p>🎤 當前音量：{Math.round(percent)}</p>
+    <div style={{ marginTop: "1rem" }}>
+      <p>⚡ 蓄力值：{Math.round(power)}</p>
       <div
         style={{
           width: "100%",
           height: "20px",
-          background: "#333",
+          background: "#444",
           borderRadius: "10px",
           overflow: "hidden",
         }}
       >
         <div
           style={{
-            width: `${percent}%`,
+            width: `${power}%`,
             height: "100%",
-            background: "limegreen",
+            background: "gold",
             transition: "width 0.1s ease-out",
           }}
         />
@@ -36,4 +32,4 @@ const VoiceBar = () => {
   );
 };
 
-export default VoiceBar;
+export default PowerBar;
