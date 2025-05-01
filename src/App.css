@@ -1,0 +1,25 @@
+.arena-page {
+  font-family: sans-serif;
+  background: #121212;
+  color: white;
+  padding: 2rem;
+
+  .game-container {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .players-panel {
+    width: 20%;
+    background: #1e1e1e;
+    padding: 1rem;
+    border-radius: 10px;
+  }
+
+  .game-stage {
+    flex: 1;
+    background: #2e2e2e;
+    border-radius: 10px;
+    height: 500px;
+  }
+}
